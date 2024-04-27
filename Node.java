@@ -1,7 +1,12 @@
-public class Node{
-    String person;
+import java.util.*;
 
-    public Node (String person){
-        this.person = person;
+public class Node{
+    String name;
+    LinkedHashSet<Node> edges;
+    Node next;
+
+    public Node (String name){
+        this.name = name;
+        this.edges = new LinkedHashSet<Node>();
     }
 }

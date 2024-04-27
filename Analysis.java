@@ -1,45 +1,43 @@
 import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Analysis{
-    private String[][] network;
-
     public static void main (String[] args){
+        String[] people;
         //collects the input of filename
         String filename = args[0];
-        BufferedReader reader = null;
+        BufferedReader reader;
+
+        GraphNetwork network = new GraphNetwork();
 
         //use try to catch some potential exceptions
         try{
-            //create fileReader object to open file
-            FileReader filereader = new FileReader(filename);
-            // create a bufferedreader to read from filereader
-            reader = new BufferedReader(filereader);
-            String line = reader.readLine();
-            int numPerson=0;
+            reader = new BufferedReader(new FileReader(filename));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                people = line.split("\\s+");
+                //check if the first name if its already a node
+                if (!network.checkNode(people[0])){
+                    network.addNode(people[0]);
+                }
 
-            while (line!=null){
-                for (int i=0; i< line.length(); i++){
-                    char c =  line.charAt(i);
-                    if (c == ' '){
-                        numPerson++;
+                for(int i=1; i<people.length; i++){
+                    if (network.checkNode(people[i])){
+                        //if its already in the network, people[0] follows people[1]
+                        network.addEdge(people[0], people[i]);
+                    }else{
+                        network.addNode(people[i]);
+                        network.addEdge(people[0], people[i]);
                     }
                 }
-                line = reader.readLine(); //read the next line       
             }
+
         } catch (IOException e){
             //handle IO exceptions (file not found)
             e.printStackTrace();
         
-        } finally {//code to be always executed
-            try{
-                //close the bufferedreader
-                if (reader != null){
-                    reader.close();
-                }
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-
-        }
+        } 
     }
 }
