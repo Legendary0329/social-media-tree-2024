@@ -28,9 +28,20 @@ public class GraphNetwork{
         Node dst = findNode(person2);
 
         if (src != null && dst != null){
+            //person1 follows person2
             src.edges.add(dst);
         }
     }
 
     //check if the name is already a node
+    public boolean checkNode(String person){
+        Node node = headNode;
+        while (node !=null){
+            if (node.name.equals(person)){
+                return true;
+            }
+            node = node.next;
+        }
+        return false;
+    }
 }

@@ -9,7 +9,6 @@ public class Analysis{
         //collects the input of filename
         String filename = args[0];
         BufferedReader reader;
-
         GraphNetwork network = new GraphNetwork();
 
         //use try to catch some potential exceptions
@@ -33,11 +32,18 @@ public class Analysis{
                     }
                 }
             }
-
         } catch (IOException e){
             //handle IO exceptions (file not found)
             e.printStackTrace();
-        
-        } 
+        //ensure the reader is closed no matter what
+        } finally {
+            if (reader != null){
+                try{
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } 
+            }
+        }
     }
 }
