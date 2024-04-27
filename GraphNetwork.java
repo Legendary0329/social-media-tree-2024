@@ -44,4 +44,24 @@ public class GraphNetwork{
         }
         return false;
     }
+
+    public int countNode(GraphNetwork network){
+        int count = 0;
+        Node node = network.headNode;
+        while (node != null) {
+            count++;
+            node = node.next;
+        }
+        return count;
+    }
+
+    public int countEdges(GraphNetwork network){
+        int count = 0;
+        Node node = network.headNode;
+        while (node != null) {
+            count += node.edges.size();
+            node = node.next;
+        }
+        return count;
+    }
 }

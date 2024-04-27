@@ -1,16 +1,16 @@
-import java.io.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Analysis{
+    
     public static void main (String[] args){
         String[] people;
         //collects the input of filename
         String filename = args[0];
-        BufferedReader reader;
+        BufferedReader reader = null;
         GraphNetwork network = new GraphNetwork();
-
+        Dapper dapper = new Dapper();
         //use try to catch some potential exceptions
         try{
             reader = new BufferedReader(new FileReader(filename));
@@ -32,6 +32,10 @@ public class Analysis{
                     }
                 }
             }
+
+            float density = dapper.density(network);
+            System.out.println("The density of the graph is" + density);
+
         } catch (IOException e){
             //handle IO exceptions (file not found)
             e.printStackTrace();
