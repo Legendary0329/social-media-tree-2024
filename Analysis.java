@@ -33,8 +33,8 @@ public class Analysis{
                 }
             }
 
-            float density = dapper.density(network);
-            System.out.println("The density of the graph is" + density);
+            double density = dapper.density(network);
+            System.out.println("The density of the graph is " + density);
 
         } catch (IOException e){
             //handle IO exceptions (file not found)
