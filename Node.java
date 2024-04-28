@@ -2,11 +2,13 @@ import java.util.*;
 
 public class Node{
     String name;
-    LinkedHashSet<Node> edges;
+    LinkedHashSet<Node> following;
+    int followers;
     Node next;
 
     public Node (String name){
         this.name = name;
-        this.edges = new LinkedHashSet<Node>();
+        this.following = new LinkedHashSet<Node>();
+        this.followers = 0;
     }
 }

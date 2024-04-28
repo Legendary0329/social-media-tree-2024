@@ -23,13 +23,13 @@ public class GraphNetwork{
     }
 
     //person1 follows person2
-    public void addEdge(String person1, String person2){
+    public void addFollowing(String person1, String person2){
         Node src = findNode(person1);
         Node dst = findNode(person2);
 
         if (src != null && dst != null){
             //person1 follows person2
-            src.edges.add(dst);
+            src.following.add(dst);
         }
     }
 
@@ -45,9 +45,10 @@ public class GraphNetwork{
         return false;
     }
 
-    public int countNode(GraphNetwork network){
+    //count how many person is in the network
+    public int countNode(){
         int count = 0;
-        Node node = network.headNode;
+        Node node = headNode;
         while (node != null) {
             count++;
             node = node.next;
@@ -55,13 +56,19 @@ public class GraphNetwork{
         return count;
     }
 
-    public int countEdges(GraphNetwork network){
+    //count how many edges in the whole network
+    public int countEdges(){
         int count = 0;
-        Node node = network.headNode;
+        Node node = headNode;
         while (node != null) {
-            count += node.edges.size();
+            count += node.following.size();
             node = node.next;
         }
         return count;
+    }
+
+    public void addFollowers(String name){
+        Node node = findNode(name);
+        node.followers++;
     }
 }
