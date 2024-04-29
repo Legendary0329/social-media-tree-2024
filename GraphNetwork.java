@@ -33,6 +33,16 @@ public class GraphNetwork{
         }
     }
 
+    //person1 is a follower of person2
+    public void addFollowers(String person1, String person2){
+        Node src = findNode(person1);
+        Node dst = findNode(person2);
+
+        if (src != null && dst != null){
+            dst.followers.add(src);
+        }
+    }
+
     //check if the name is already a node
     public boolean checkNode(String person){
         Node node = headNode;
@@ -67,8 +77,23 @@ public class GraphNetwork{
         return count;
     }
 
-    public void addFollowers(String name){
+    //get who the first person in the input follows
+    public Node[] getFollowers(String name){
         Node node = findNode(name);
-        node.followers++;
+        Node[] numNeighbors = null;
+
+        if (node != null){
+            numNeighbors = node.followers.toArray(new Node[node.followers.size()]);
+        }
+        
+        return numNeighbors;
+    }
+
+    public int countFollwers(Node node){
+        int count = 0;
+        if (node != null) {
+            count += node.followers.size();
+        }
+        return count;
     }
 }
