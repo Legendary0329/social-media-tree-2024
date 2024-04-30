@@ -42,10 +42,11 @@ public class Analysis{
                 }
             }
 
-            /*reader.close();
+            
+            reader.close();
             if (firstname != null){
                 network.headNode = network.findNode(firstname);
-            }*/
+            }
 
             //tasks:
             //task 1:

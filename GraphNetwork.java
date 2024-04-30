@@ -5,10 +5,17 @@ public class GraphNetwork{
 
     //add person to the graph 
     public void addNode (String person){
-       Node node = new Node(person);
-       node.next = headNode;
-       headNode = node;
-    }
+        Node newNode = new Node(person);
+        if (headNode == null) {
+            headNode = newNode;
+        } else {
+            Node current = headNode;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+     }
 
     //where is person in the garph
     public Node findNode(String person){

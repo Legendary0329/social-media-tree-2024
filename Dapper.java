@@ -59,15 +59,16 @@ public class Dapper
             System.out.println("Number of first-degree followers of " + degree1.length);
         
             //count the followers of the first name's followers
-            int degree2 = 0;
+            int numPeople = 0;
+            Node[] degree2 = new Node[degree1.length];
 
             for (int i=0; i<degree1.length; i++){
                 int followersCount = network.countFollwers(degree1[i]);
                 System.out.println("Followers of " + degree1[i].name + ": " + followersCount);
-                degree2 += followersCount;
+                numPeople += followersCount;
             }
 
-            return degree2;
+            return numPeople;
         } else {
             return 0;
         }
