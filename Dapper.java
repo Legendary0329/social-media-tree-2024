@@ -1,7 +1,6 @@
 import java.util.Arrays;
 
-public class Dapper
-{
+public class Dapper{
     //task 1
     public double density(GraphNetwork network){
         int numNodes = network.countNode();
@@ -99,12 +98,11 @@ public class Dapper
         return false;
     }
 
+    //task 5:
     public void medianValue (GraphNetwork network){
         Node node = network.headNode;
-        int[] numFollowers = new int[100];
+        int[] numFollowers = new int[network.countNode()];
         int count = 0;
-        int medianValue = 0;
-        //int medianValueEven = 0;
 
         //collect each name's follwers into array
         while (node != null){
@@ -118,15 +116,75 @@ public class Dapper
 
         //if number of people in the networl is even
         if ((count%2) == 0){
-            //medianValue = numFollowers[count/2]; 
-            //medianValueEven = numFollowers[(count/2)+1]; 
-            System.out.println("there are 2 median values: " + numFollowers[count/2] + " and " + numFollowers[(count/2)+1]);
-
-            //return medianValue;
-            //return medianValueEven;
+            int[] even = new int[2];
+            even[0] = numFollowers[count/2]; 
+            even[1] = numFollowers[(count/2)+1]; 
+            System.out.println("there are 2 median values: " + even[0] + " and " + even[1]);
         } else {
             //medianValue = numFollowers[count/2]; 
             System.out.println("the median value for the the number of followers in the network is " + numFollowers[count/2]);
         }
     }
+
+    //task 6:
+    public String mostInfluencial (GraphNetwork network){
+        Dapper dapper = new Dapper();
+        Node node = network.headNode;
+        Node[] people = new Node[network.countNode()];
+        Node[] followers;
+        int i= 0;
+        int j=0;
+        int count = 0;
+        String maxFollowers = dapper.mostFollowers(network);
+        String name;
+        
+
+        while (node != null){
+            people[i] = node;
+            if (i<network.countNode()){
+                i++;
+            }
+            node = node.next;
+        }
+
+        // for (int l=0; l<people.length; l++){
+            // if (people[l].name.equals(maxFollowers)){
+                // max = people[l].followers.size();
+                // break;
+            // }
+        // }
+
+        while(j < people.length){
+            followers = network.getFollowers(people[j].name);
+
+            if(followers != null){
+                count += followers.length;
+
+                Node[] followers2 = network.getFollowers(followers[j].name);
+
+                if (followers2 != null) {
+                    count += followers.length;
+                    if(followers2[k].equals(followers)){
+                        count--;
+                    }
+                }
+
+                
+            }
+            people[j].levelOfInfluence = count;
+            j++;
+        }
+
+        int max = people[0].levelOfInfluence;
+
+        for (int k=1; k<people.length; k++){
+            if(max<people[k].levelOfInfluence){
+                max = people[k].levelOfInfluence;
+                name = people[k].name;
+            }
+        }
+        
+        return name;
+    }
+
 }
