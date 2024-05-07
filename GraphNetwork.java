@@ -1,5 +1,6 @@
 public class GraphNetwork{
     Node headNode;
+    boolean[] visited;
 
     public GraphNetwork(){}
 
@@ -91,6 +92,10 @@ public class GraphNetwork{
 
         if (node != null){
             numNeighbors = node.followers.toArray(new Node[node.followers.size()]);
+        }
+
+        if (numNeighbors == null){
+            System.out.println("this person has no followers.");
         }
         
         return numNeighbors;

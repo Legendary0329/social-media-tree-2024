@@ -42,8 +42,8 @@ public class Analysis{
                 }
             }
 
-            
             reader.close();
+            // reset the headnode for task 4
             if (firstname != null){
                 network.headNode = network.findNode(firstname);
             }
@@ -65,8 +65,13 @@ public class Analysis{
             int degree2 = dapper.secDegreeRelation(network);
             System.out.println("the number of people at 2 degrees of separation of the first person in the input is " + degree2);
 
-             //task 5:
-             dapper.medianValue(network);
+            //task 5:
+            dapper.medianValue(network);
+
+            //task 6:
+            String person = dapper.mostInfluential(network);
+            System.out.println("the person enrolled is " + person);
+
              
 
         } catch (IOException e){
