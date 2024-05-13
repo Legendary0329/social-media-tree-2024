@@ -6,6 +6,7 @@ public class Dapper{
         int numNodes = network.countNode();
         int numEdges = network.countEdges();
 
+        //formula to calculate density
         double density = (double) numEdges / (numNodes*(numNodes -1));
         
         return density;
@@ -19,8 +20,8 @@ public class Dapper{
 
         while(node != null){
             int numFollowers = network.countFollwers(node);
-            //if the result of the compare is negative that means the comes before in alphabetic order.
-            if (numFollowers > max || (numFollowers == max && (mostFollowers != null && mostFollowers.compareTo(node.name) > 0))){
+            //if the result of the compare is negative that means it comes before in an alphabetic order.
+            if ((numFollowers > max) || ((numFollowers == max) && (mostFollowers != null && mostFollowers.compareTo(node.name) > 0))){
                 max = numFollowers;
                 mostFollowers = node.name;
             }

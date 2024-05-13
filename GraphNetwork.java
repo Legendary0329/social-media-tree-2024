@@ -1,6 +1,5 @@
 public class GraphNetwork{
     Node headNode;
-    boolean[] visited;
 
     public GraphNetwork(){}
 
@@ -51,7 +50,7 @@ public class GraphNetwork{
         }
     }
 
-    //check if the name is already a node
+    //check if person is already a node
     public boolean checkNode(String person){
         Node node = headNode;
         while (node !=null){
@@ -85,22 +84,19 @@ public class GraphNetwork{
         return count;
     }
 
-    //get who the first person in the input follows
-    public Node[] getFollowers(String name){
-        Node node = findNode(name);
+    //get the followers 
+    public Node[] getFollowers(String person){
+        Node node = findNode(person);
         Node[] numNeighbors = null;
 
         if (node != null){
             numNeighbors = node.followers.toArray(new Node[node.followers.size()]);
         }
-
-        if (numNeighbors == null){
-            System.out.println("this person has no followers.");
-        }
         
         return numNeighbors;
     }
 
+    //count how many followers each node has
     public int countFollwers(Node node){
         int count = 0;
         if (node != null) {
