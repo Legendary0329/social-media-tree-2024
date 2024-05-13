@@ -72,8 +72,6 @@ public class Analysis{
             String person = dapper.mostInfluential(network);
             System.out.println("the person enrolled is " + person);
 
-             
-
         } catch (IOException e){
             //handle IO exceptions (file not found)
             e.printStackTrace();

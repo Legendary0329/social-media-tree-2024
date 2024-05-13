@@ -27,7 +27,6 @@ public class Dapper{
             }
             node = node.next;
         }
-
         return mostFollowers;
     }
 
@@ -38,8 +37,9 @@ public class Dapper{
         int max = 0;
 
         while(node != null){
-            if (node.following.size() > max){
-                max = node.following.size();
+            int numFollowing = node.following.size();
+            if ((numFollowing > max) || numFollowing == max && (mostFollowings != null && mostFollowings.compareTo(node.name) > 0)){
+                max = numFollowing;
                 mostFollowings = node.name;
             }
             node = node.next;
@@ -110,6 +110,7 @@ public class Dapper{
             numFollowers[count] = network.countFollwers(node);
             count++;
             node = node.next;
+            
         }
 
         //sort in an increasing order
@@ -121,7 +122,7 @@ public class Dapper{
             even[0] = numFollowers[count/2];
             even[1] = numFollowers[(count/2)+1]; 
             float result = (even[0] + even[1])/2;
-            System.out.println("the median value for the the number of followers in the network is " + result);
+            System.out.println("there is 2 median values, their average is " + result);
         } else {
             //medianValue = numFollowers[count/2]; 
             System.out.println("the median value for the the number of followers in the network is " + numFollowers[count/2]);
@@ -136,7 +137,6 @@ public class Dapper{
 
         while (node != null){
             int count = depth(node, network, new HashSet<>());
-            System.out.println(node.name + count);
             // the node is more influential, substitute the node
             if (count > maxFollowers){
                 maxFollowers = count;
@@ -149,7 +149,7 @@ public class Dapper{
     }
     
     private int depth(Node node, GraphNetwork network, Set<String> visited) {
-        //recursive method:
+        //recursive method: until the current node has no followers
         //check if the node is already viisted
         if (visited.contains(node.name)){
             return 0;
@@ -158,16 +158,13 @@ public class Dapper{
         visited.add(node.name);
         int count = 1;
 
-        Node[] follwers = network.getFollowers(node.name);
-        for (int j=0; j<follwers.length; j++){
-            if (!visited.contains(follwers[j].name)){
-                count += depth(follwers[j], network, visited);
+        Node[] followers = network.getFollowers(node.name);
+        for (int j=0; j<followers.length; j++){
+            if (followers != null && !visited.contains(followers[j].name)){
+                count += depth(followers[j], network, visited);
             }
         }
-        System.out.println(visited);
 
         return count;
     }
-    
-
 }
