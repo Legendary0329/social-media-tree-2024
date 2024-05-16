@@ -48,7 +48,7 @@ public class Dapper{
         return mostFollowings;
     }
 
-    //task 4: only find degree 2s of the first name of the input
+    //task 4: only find degree 2s of the first name of the input file
     public int secDegreeRelation(GraphNetwork network) { 
         // Get the input file's first name
         Node firstName = network.findNode(network.headNode.name);
@@ -56,11 +56,8 @@ public class Dapper{
         if (firstName != null) {
             // Get followers of the first name
             Node[] degree1 = network.getFollowers(firstName.name);
-            
-            // Count the followers of the first name's followers
             int numPeople = 0;
-            //have to change the size of the array depending on the number of people in the network
-            Node[] degree2 = new Node[100];
+            Node[] degree2 = new Node[network.countNode()];
             
             for (int i = 0; i < degree1.length; i++) {
                 // Get the followers of each with 1 degree separation
@@ -77,6 +74,7 @@ public class Dapper{
                             } else if (degree2[k] == null) {
                                 //if not, add it to the degree2 array
                                 degree2[k] = verifiedDegree1[j];
+                                // Count the followers of the first name's followers
                                 numPeople++;
                                 break;
                             }
@@ -90,6 +88,7 @@ public class Dapper{
         }
     }
     
+    //for task 4, check if the node is in array
     private boolean isInArray (Node node, Node[] array){
         for (int i=0; i<array.length; i++){
             if (array[i] == node){
@@ -99,21 +98,20 @@ public class Dapper{
         return false;
     }
 
-    //task 5:
+    //task 5:s
     public void medianValue (GraphNetwork network){
         Node node = network.headNode;
         int[] numFollowers = new int[network.countNode()];
         int count = 0;
 
-        //collect each name's follwers into array
+        //collect each person's followers in the grpah into array numFollowers
         while (node != null){
             numFollowers[count] = network.countFollwers(node);
             count++;
             node = node.next;
-            
         }
 
-        //sort in an increasing order
+        //sort the number of followers of each person in an increasing order
         Arrays.sort(numFollowers,0,count);
 
         //if number of people in the networl is even
@@ -124,7 +122,6 @@ public class Dapper{
             float result = (even[0] + even[1])/2;
             System.out.println("there is 2 median values, their average is " + result);
         } else {
-            //medianValue = numFollowers[count/2]; 
             System.out.println("the median value for the the number of followers in the network is " + numFollowers[count/2]);
         }
     }
@@ -136,8 +133,9 @@ public class Dapper{
         int maxFollowers = 0;
 
         while (node != null){
+            //find the depth of each person
             int count = depth(node, network, new HashSet<>());
-            // the node is more influential, substitute the node
+            //if the node is more influential, substitute the node
             if (count > maxFollowers){
                 maxFollowers = count;
                 mostInfluentialName = node.name;
@@ -148,8 +146,8 @@ public class Dapper{
         return mostInfluentialName;
     }
     
+    //for task 6: //recursive method: until the current node has no followers
     private int depth(Node node, GraphNetwork network, Set<String> visited) {
-        //recursive method: until the current node has no followers
         //check if the node is already viisted
         if (visited.contains(node.name)){
             return 0;
@@ -158,13 +156,16 @@ public class Dapper{
         visited.add(node.name);
         int count = 1;
 
+        //get the followers of the node
         Node[] followers = network.getFollowers(node.name);
         for (int j=0; j<followers.length; j++){
+            //go through every follower and check if it has already been iterated
             if (followers != null && !visited.contains(followers[j].name)){
+                //add the counts of followers of ndoe and folloewrs of node's follower and so on
                 count += depth(followers[j], network, visited);
             }
         }
-
+        
         return count;
     }
 }

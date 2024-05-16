@@ -21,6 +21,7 @@ public class GraphNetwork{
     public Node findNode(String person){
         Node node = headNode;
         while (node !=null){
+            //if it finds the same name, return the node
             if (node.name.equals(person)){
                 return node;
             }
@@ -54,6 +55,7 @@ public class GraphNetwork{
     public boolean checkNode(String person){
         Node node = headNode;
         while (node !=null){
+            //if in the graoh it has a same name, then return existed (true)
             if (node.name.equals(person)){
                 return true;
             }
@@ -66,6 +68,7 @@ public class GraphNetwork{
     public int countNode(){
         int count = 0;
         Node node = headNode;
+        //count until iterated every single node
         while (node != null) {
             count++;
             node = node.next;

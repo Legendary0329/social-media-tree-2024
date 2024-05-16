@@ -15,12 +15,12 @@ public class Analysis{
         try{
             reader = new BufferedReader(new FileReader(filename));
             String line;
-            String firstname = null;
+            String firstName = null;
             while ((line = reader.readLine()) != null) {
                 people = line.split("\\s+");
 
-                if (firstname == null){
-                    firstname = people[0];
+                if (firstName == null){
+                    firstName = people[0];
                 }
 
                 //check if the first name if its already a node
@@ -44,8 +44,8 @@ public class Analysis{
 
             reader.close();
             // reset the headnode for task 4
-            if (firstname != null){
-                network.headNode = network.findNode(firstname);
+            if (firstName != null){
+                network.headNode = network.findNode(firstName);
             }
 
             //tasks:
@@ -73,7 +73,7 @@ public class Analysis{
             System.out.println("the person enrolled is " + person);
 
         } catch (IOException e){
-            //handle IO exceptions (file not found)
+            //handling IO exceptions (ex: file not found)
             e.printStackTrace();
         //ensure the reader is closed no matter what
         } finally {
@@ -81,6 +81,7 @@ public class Analysis{
                 try{
                     reader.close();
                 } catch (IOException e) {
+                    //if the file doesn't close
                     e.printStackTrace();
                 } 
             }
