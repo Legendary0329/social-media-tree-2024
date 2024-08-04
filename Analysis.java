@@ -63,7 +63,7 @@ public class Analysis{
 
             //task 4:
             int degree2 = dapper.secDegreeRelation(network);
-            System.out.println("the number of people at 2 degrees of separation of the first person in the input is " + degree2);
+            System.out.println("the number of people at 2 degrees of separation of the first name in the file is " + degree2);
 
             //task 5:
             dapper.medianValue(network);
