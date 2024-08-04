@@ -70,7 +70,7 @@ public class Analysis{
 
             //task 6:
             String person = dapper.mostInfluential(network);
-            System.out.println("the person enrolled is " + person);
+            System.out.println("the most well connected person is " + person);
 
         } catch (IOException e){
             //handling IO exceptions (ex: file not found)
